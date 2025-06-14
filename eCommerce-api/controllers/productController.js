@@ -1,23 +1,25 @@
-const productService = require('../services/productService');
+// controllers/productController.js
+const Product = require('../models/productModel');
 
-const getAllProducts = (req, res) => {
-  const result = productService.getAllProducts();
-  res.send(result);
+exports.getAllProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({ success: true, data: products });
+  } catch (err) {
+    next(err);
+  }
 };
 
-const getProductById = (req, res) => {
-  const id = req.params.id;
-  const result = productService.getProductById(id);
-  res.send(result);
-};
-
-const addProduct = (req, res) => {
-  const result = productService.addProduct();
-  res.send(result);
-};
-
-module.exports = {
-  getAllProducts,
-  getProductById,
-  addProduct,
+exports.getProductById = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      const error = new Error('Product not found');
+      error.statusCode = 404;
+      return next(error);
+    }
+    res.status(200).json({ success: true, data: product });
+  } catch (err) {
+    next(err);
+  }
 };
