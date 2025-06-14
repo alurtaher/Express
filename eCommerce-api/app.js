@@ -1,18 +1,16 @@
 const express = require('express');
 const app = express();
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
-const cartRoutes = require('./routes/cartRoutes');
-const errorHandler = require('./utils/errorHandler');
+const userRoutes = require('./routes/userRoutes.js');
+const productRoutes = require('./routes/productRoutes.js');
+const cartRoutes = require('./routes/cartRoutes.js');
 
 app.use(express.json());
 
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/cart', cartRoutes);
+app.use('/users', userRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
 
-// Centralized Error Handler Middleware
-app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+
+const PORT =3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
