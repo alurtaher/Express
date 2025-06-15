@@ -4,6 +4,9 @@ const userRoutes = require("./routes/userRoutes.js");
 const productRoutes = require("./routes/productRoutes.js");
 const cartRoutes = require("./routes/cartRoutes.js");
 const path = require("path");
+const bodyParser = require('body-parser');
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
@@ -16,8 +19,10 @@ app.get('/api/products',(req, res) => {
   res.sendFile(path.join(__dirname, 'view', 'product.html'));
 })
 
-app.post('/api/products',(req,res)=>{
-  return res.json({msg:"Data Received Successfully",success:true})
+app.post('/api/products',(req, res) => {
+  const { productName } = req.body;
+  console.log('Received Product:', productName);
+  res.json({ message: 'Product received successfully', product: productName });
 })
 
 app.use("/users", userRoutes);
