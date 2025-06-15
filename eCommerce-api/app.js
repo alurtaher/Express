@@ -8,9 +8,17 @@ const path = require("path");
 app.use(express.json());
 
 //Sending the HTML File
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "view", "product.html"));
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "view", "product.html"));
+// });
+
+app.get('/api/products',(req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'product.html'));
+})
+
+app.post('/api/products',(req,res)=>{
+  return res.json({msg:"Data Received Successfully",success:true})
+})
 
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
