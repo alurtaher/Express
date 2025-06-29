@@ -1,4 +1,24 @@
-const mysql = require("mysql2");
+const dotenv = require("dotenv");
+dotenv.config();
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize(process.env.database,process.env.user,process.env.password,{
+    host: "localhost",
+    dialect: "mysql",
+  });
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
+
+module.exports = sequelize;
+
+/*const mysql = require("mysql2");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -36,4 +56,4 @@ connection.execute(createUsersTable, (err) => {
   console.log("student Table is created ");
 });
 
-module.exports = connection;
+module.exports = connection;*/
