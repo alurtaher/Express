@@ -7,5 +7,6 @@ router.post('/',controller.addNewStudent)
 router.get('/:id',controller.getStudentDataById)
 router.put('/:id',controller.updateStudentDataById);
 router.delete('/:id',controller.deleteStudentById)
+router.post('/addingStudentWithCard',controller.addingValuesToStudentAndIdentityCard)
 
 module.exports = router;

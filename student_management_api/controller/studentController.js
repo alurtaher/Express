@@ -1,5 +1,6 @@
 const connection = require("../utils/dbconnection.js");
 const Student = require("../models/student.js");
+const IdentityCard = require("../models/identitycard.js");
 
 const allStudentsData = (req, res) => {
   const query = `select * from student`;
@@ -70,10 +71,24 @@ const deleteStudentById = async (req, res) => {
   }
 };
 
+const addingValuesToStudentAndIdentityCard = async (req, res) => {
+  try {
+    const student = await Student.create(req.body.student);
+    const idCard = await IdentityCard.create({
+      ...req.body.IdentityCard,
+      studentId: student.id,
+    });
+    res.status(201).send(student, idCard);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   allStudentsData,
   addNewStudent,
   getStudentDataById,
   updateStudentDataById,
   deleteStudentById,
+  addingValuesToStudentAndIdentityCard
 };
