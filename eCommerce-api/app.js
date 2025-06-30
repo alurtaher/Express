@@ -16,7 +16,7 @@ app.use(express.json());
 // });
 
 app.get('/api/products',(req, res) => {
-  res.sendFile(path.join(__dirname, 'view', 'product.html'));
+  res.sendFile(path.join(__dirname, 'view', 'produc.html'));
 })
 
 app.post('/api/products',(req, res) => {

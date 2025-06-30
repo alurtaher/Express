@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const busController = require('../controllers/busController');
+const busController = require("../controllers/busController");
 
-router.post('/', busController.createBus);
-router.get('/available/:seats', busController.getAvailableBuses);
+router.post("/buses", busController.createBus);
+router.get("/buses/:id/bookings", busController.getBusBookings);
 
 module.exports = router;

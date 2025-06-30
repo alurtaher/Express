@@ -1,18 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const sequelize = require('./utils/database');
-const userRoutes = require('./routes/userRoutes');
-const busRoutes = require('./routes/busRoutes');
-
+const express = require("express");
 const app = express();
-app.use(bodyParser.json());
+const { sequelize } = require("./models");
+require("dotenv").config();
+
+app.use(express.json());
 
 // Routes
-app.use('/users',userRoutes);
-app.use('/buses',busRoutes);
+app.use(require("./routes/userRoutes"));
+app.use(require("./routes/busRoutes"));
+app.use(require("./routes/bookingRoutes"));
 
-// Sync DB and start server
-sequelize.sync({ force: false }).then(() => {
-  console.log("Database Connected");
-  app.listen(3000, () => console.log("Server running on port 3000"));
+// Sync Database
+sequelize.sync({ force: true }).then(() => {
+  console.log("Database synced.");
+// Start Server
+  app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+  });
 });
